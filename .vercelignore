@@ -1,0 +1,10 @@
+.git
+.vercel
+node_modules
+.next
+.env*
+local_ai/.venv
+local_ai/models
+.taste-skill
+tmp
+design-references
