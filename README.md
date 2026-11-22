@@ -1,31 +1,115 @@
-# TicketStandard AI
+<div align="center">
+  <img src="public/images/ticketstandard-wordmark.png" alt="TicketStandard" width="620" />
 
-TicketStandard prepares customer-submitted photos for consistent review. It corrects the displayed orientation, fits the full image to a standard canvas without cropping, converts the output format, and shows a before-and-after comparison. The original stays available and is never overwritten.
+  <h1>Customer photos, ready for review.</h1>
+  <p>A browser-based photo studio for preparing clear, consistent customer images for support tickets.</p>
+  <p>
+    <a href="https://github.com/chillydudy/ticketstandard">Source code</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/chillydudy/ticketstandard/issues">Report an issue</a>
+  </p>
+</div>
 
-## Start the app
+---
+
+## What it does
+
+TicketStandard helps support teams turn customer-submitted photos into review-ready copies. Open a photo, correct its orientation and framing, make visual adjustments, then export a separate copy. The source image is kept intact.
+
+### Prepare a photo
+
+- Open a JPEG, PNG, or WebP image up to 40 MB, or drag it into the studio.
+- Rotate, straighten, flip, crop, and zoom to bring the important detail into view.
+- Adjust exposure, contrast, saturation, warmth, and sharpness; choose a color filter when useful.
+- Fit the full image to an original, square, portrait, or landscape frame, with background and fill controls for empty areas.
+- Compare the edited result with the source, inspect details, and undo or redo changes.
+- Save a new PNG, JPEG, or WebP copy with a chosen filename. The original file is never overwritten.
+
+### Refine blur
+
+The **Refine** tool can use the optional local NAFNet model to reduce blur. The model runs through a local service on your computer; it is not included in Git because its weights are large. Standard editing works without this setup.
+
+## Product visuals
+
+The landing page demonstrates the camera and film-strip story. The studio's sample flow uses the model-kit photo below to show a tilted submission, a straightened view, and a refined detail.
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="public/images/lego-kit-original-tilted.png" alt="Model-kit photo as submitted, with a visible tilt" width="100%" />
+      <br /><strong>As submitted</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="public/images/lego-kit-rotated-fit.jpg" alt="Model-kit photo straightened and fitted without cropping" width="100%" />
+      <br /><strong>Straightened</strong>
+    </td>
+    <td align="center" width="33%">
+      <img src="public/images/bag-detail-refined.webp" alt="Refined close-up of a numbered model-kit parts bag" width="100%" />
+      <br /><strong>Quality refined</strong>
+    </td>
+  </tr>
+</table>
+
+> These are example photos used by the product demo, not screenshots of the interface.
+
+## Run locally
+
+### Requirements
+
+- Node.js and npm
+- Windows PowerShell only if you want to set up the optional local blur-refinement model
+
+### Start the website
 
 ```bash
+git clone https://github.com/chillydudy/ticketstandard.git
+cd ticketstandard
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000). The main landing page is `/`; the editor is available at `/workspace`.
 
-## Current workflow
+### Optional: enable local Refine
 
-- Select a JPEG, PNG, or WebP image up to 40 MB.
-- Choose a square, portrait, landscape, or original-size canvas.
-- Preserve the whole photo with proportional fitting and padding when its shape differs from the canvas.
-- Export as PNG, JPEG, or WebP. JPEG transparency uses the selected solid background.
-- Compare the original and prepared copy, review the changes, and download a separate file.
+Install Python 3.11, then run this from PowerShell:
 
-Standardization runs in the browser. The prototype does not upload images to application storage, retain user files, authenticate accounts, or keep a persistent change history. Local blur repair uses the open-source [NAFNet GoPro model](https://github.com/megvii-research/NAFNet) on this PC. Install Python 3.11, then run `npm run ai:setup` once to install the CPU runtime and download the model (about 270 MB); start the app with `npm run dev`. Blur repair needs no provider account or per-image API charge; the first repair can take a while on CPU. Image expansion is separate and still needs a configured provider; the original photo is sent to that provider when expansion runs.
+```powershell
+npm run ai:setup
+npm run dev
+```
 
-Local model files are stored in `local_ai/models/` and ignored by Git. The app runs the local inference service on `127.0.0.1` only.
+The setup script installs the CPU runtime and downloads the NAFNet GoPro model (about 270 MB). The model files are stored in `local_ai/models/` and are intentionally excluded from Git. The local inference service listens on `127.0.0.1`.
 
-## Project notes
+## How photo data is handled
 
-- Main routes: `/` product overview and `/workspace` image workflow.
-- The former event-management workspace remains in the source tree as an archive while this project is repurposed.
-- See [`docs/superpowers/plans/2026-11-15-ticketstandard-workflow.md`](./docs/superpowers/plans/2026-11-15-ticketstandard-workflow.md) for the implementation sequence.
-- See [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md) for reused open-source package notices.
+- Standard photo edits run in the browser on the user's device.
+- The site does not upload photos to application storage, retain user files, or maintain an edit history.
+- When **Refine** is enabled, the selected photo is sent to the local inference service on that same computer.
+- The optional refinement service is intended for local use and is not available from a deployed website without separate server configuration.
+
+## Project layout
+
+```text
+app/                 Next.js routes and API endpoint
+components/          Landing page, studio, camera, and UI components
+lib/ticketstandard/  Browser image processing and rendering worker
+local_ai/            Optional local NAFNet service
+public/images/       Product visuals, sample photos, and image credits
+design-references/   Archived event-workspace reference material
+docs/                Design notes and implementation plans
+scripts/             Development and local-model setup helpers
+```
+
+## Useful commands
+
+```bash
+npm run dev       # Start the development server
+npm run build     # Create a production build
+npm run start     # Serve the production build
+npm run ai:setup  # Optional local AI setup (Windows, Python 3.11)
+```
+
+## Credits
+
+This project includes open-source UI components and third-party images. See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md), [`public/images/credits.json`](public/images/credits.json), and [`design-references/image-credits.json`](design-references/image-credits.json) for the relevant notices and attributions.
