@@ -19,7 +19,7 @@ export function LandingHalftoneFooter() {
     if (!ink) return;
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     const wordmark = new Image();
-    let dots: { x: number; y: number; dx: number; dy: number; vx: number; vy: number }[] = [];
+    let dots: { x: number; y: number; radius: number; dx: number; dy: number; vx: number; vy: number }[] = [];
     let pointer: { x: number; y: number } | null = null;
     let wave: { x: number; y: number; start: number } | null = null;
     let frame = 0;
@@ -52,7 +52,7 @@ export function LandingHalftoneFooter() {
         moving ||= displacement + Math.abs(dot.vx) + Math.abs(dot.vy) > .12;
         context.fillStyle = displacement > 2 ? "#e5ba80" : "#ded9d0";
         context.beginPath();
-        context.arc(dot.x + dot.dx, dot.y + dot.dy, 1.15, 0, Math.PI * 2);
+        context.arc(dot.x + dot.dx, dot.y + dot.dy, dot.radius, 0, Math.PI * 2);
         context.fill();
       }
       if (dots.length) activeCanvas.dataset.inkReady = "true";
@@ -72,8 +72,17 @@ export function LandingHalftoneFooter() {
       ink.drawImage(wordmark, (width - markWidth) / 2, (height - markHeight) / 2, markWidth, markHeight);
       const pixels = ink.getImageData(0, 0, width, height).data;
       dots = [];
-      for (let y = 2; y < height; y += 4) for (let x = 2; x < width; x += 4) {
-        if (pixels[(y * width + x) * 4 + 3] > 125) dots.push({ x, y, dx: 0, dy: 0, vx: 0, vy: 0 });
+      const pitch = 3;
+      for (let y = pitch / 2; y < height; y += pitch) for (let x = pitch / 2; x < width; x += pitch) {
+        let alpha = 0, samples = 0;
+        for (let sampleY = Math.max(0, Math.floor(y - 1)); sampleY <= Math.min(height - 1, Math.ceil(y + 1)); sampleY++) {
+          for (let sampleX = Math.max(0, Math.floor(x - 1)); sampleX <= Math.min(width - 1, Math.ceil(x + 1)); sampleX++) {
+            alpha += pixels[(sampleY * width + sampleX) * 4 + 3];
+            samples++;
+          }
+        }
+        const coverage = alpha / (samples * 255);
+        if (coverage > .1) dots.push({ x, y, radius: .72 + coverage * .36, dx: 0, dy: 0, vx: 0, vy: 0 });
       }
       wake();
     };

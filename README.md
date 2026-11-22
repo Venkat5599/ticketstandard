@@ -95,9 +95,7 @@ app/                 Next.js routes and API endpoint
 components/          Landing page, studio, camera, and UI components
 lib/ticketstandard/  Browser image processing and rendering worker
 local_ai/            Optional local NAFNet service
-public/images/       Product visuals, sample photos, and image credits
-design-references/   Archived event-workspace reference material
-docs/                Design notes and implementation plans
+public/images/       Active landing-page, studio, and sample-photo assets
 scripts/             Development and local-model setup helpers
 ```
 
@@ -112,4 +110,4 @@ npm run ai:setup  # Optional local AI setup (Windows, Python 3.11)
 
 ## Credits
 
-This project includes open-source UI components and third-party images. See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md), [`public/images/credits.json`](public/images/credits.json), and [`design-references/image-credits.json`](design-references/image-credits.json) for the relevant notices and attributions.
+See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) for notices covering the active runtime and optional local Refine service.

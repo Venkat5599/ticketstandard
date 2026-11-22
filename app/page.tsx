@@ -10,17 +10,17 @@ import { TicketTitleIntro } from "@/components/ticket-title-intro";
 
 export default function Home() {
   return (
-    <main id="top" className="ticket-apple-page">
+    <main id="top" className="ticket-landing-page">
       <TicketTitleIntro waitForCamera label="Loading home…" />
-      <div className="ticket-apple-first-view has-studio-preview">
-        <header className="ticket-apple-nav">
-          <Link href="/" className="ticket-apple-wordmark ticket-apple-brand-lockup" aria-label="TicketStandard home">
+      <div className="ticket-landing-first-view has-studio-preview">
+        <header className="ticket-landing-nav">
+          <Link href="/" className="ticket-landing-wordmark ticket-landing-brand-lockup" aria-label="TicketStandard home">
             <Image src="/images/ticketstandard-wordmark.png" alt="" width={2172} height={724} priority />
           </Link>
         </header>
-        <section className="ticket-apple-hero ticket-comparison-hero" aria-labelledby="ticket-apple-title">
-          <div className="ticket-apple-hero-copy">
-            <h1 id="ticket-apple-title">Customer photos.<br /><span className="hero-ink-bleed">Ready for review.</span></h1>
+        <section className="ticket-landing-hero ticket-comparison-hero" aria-labelledby="ticket-landing-title">
+          <div className="ticket-landing-hero-copy">
+            <h1 id="ticket-landing-title">Customer photos.<br /><span className="hero-ink-bleed">Ready for review.</span></h1>
             <p>Turn inconsistent customer photos into review-ready copies for support tickets.</p>
             <div className="hero-demo-actions">
             <PreparePhotoLink />
@@ -30,7 +30,7 @@ export default function Home() {
           <LandingHeroPreview />
         </section>
       </div>
-      <div className="ticket-apple-feature-continuum">
+      <div className="ticket-landing-feature-continuum">
         <LandingPhotoCarousel />
         <section className="landing-benefits" aria-label="Editing and export features">
           <ul>

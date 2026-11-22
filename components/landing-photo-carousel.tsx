@@ -12,11 +12,11 @@ const slides = [
 ];
 const reelImages = [
   { name: "sports-car", file: "film-reel-sports-car.webp" },
-  { name: "chanel-bag", file: "film-reel-quilted-bag.webp" },
+  { name: "chanel-bag", file: "film-reel-chanel-bag.webp" },
   { name: "headphones", file: "film-reel-headphones.webp" },
   { name: "speaker", file: "film-reel-speaker.webp" },
-  { name: "macbook", file: "film-reel-laptop.webp" },
-  { name: "louis-bag", file: "film-reel-camera.webp" },
+  { name: "macbook", file: "film-reel-macbook.webp" },
+  { name: "louis-bag", file: "film-reel-louis-vuitton-bag.webp" },
 ];
 const reelFrames = Array.from({ length: 2 }, (_, copy) =>
   reelImages.map(image => ({ ...image, key: `${copy}-${image.name}` }))
