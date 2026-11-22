@@ -1,0 +1,39 @@
+{
+  "name": "ticketstandard-ai",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "ai:setup": "powershell -ExecutionPolicy Bypass -File scripts/setup-local-ai.ps1",
+    "ai:local": "node scripts/local-ai.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint:design": "node C:/Users/yeshw/.agents/skills/design-taste-frontend/scripts/lint.mjs app components lib"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@gsap/react": "^2.1.2",
+    "@phosphor-icons/react": "^2.1.10",
+    "@radix-ui/react-slot": "^1.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^14.14.0",
+    "gsap": "^3.15.1",
+    "image-resize-compress": "^4.1.0",
+    "liquid-glass-react": "^1.1.1",
+    "next": "^15.5.0",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "20.17.6",
+    "@types/react": "19.3.0",
+    "@types/three": "^0.187.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.9.0"
+  }
+}

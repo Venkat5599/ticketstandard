@@ -1,0 +1,15 @@
+/.env.local
+/local_ai/.venv/
+/local_ai/models/
+/node_modules/
+/.next/
+/.next-*/
+/out/
+/dist/
+/coverage/
+/.taste-skill/
+/tmp/
+*.tsbuildinfo
+*.log
+__pycache__/
+*.pyc
