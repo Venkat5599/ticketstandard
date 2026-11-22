@@ -240,6 +240,11 @@ export function mountCamera(canvas: HTMLCanvasElement, onFirstRender: () => void
   rim.position.set(4, 3, -2);
   scene.add(rim);
   scene.add(new T.HemisphereLight(0xe7edf4,0x38312a,.55));
+  // The diffuser should light the camera briefly, not only glow by itself.
+  // Keep the point light on the camera body so it follows the camera turn.
+  const flashLight = new T.PointLight(0xffedcf, 0, 5.5, 2);
+  flashLight.position.set(1.68, 1.03, .72);
+  body.add(flashLight);
   let frame=0;
   let targetX=.115,targetY=-.31,targetZ=-.048;
   let captureFacing=false;
@@ -269,6 +274,7 @@ export function mountCamera(canvas: HTMLCanvasElement, onFirstRender: () => void
       leaf.rotation.z = index * Math.PI * 2 / 9 - .53 * stopDown;
     });
     flashMaterial.emissiveIntensity = elapsed >= 65 ? 5 * Math.exp(-(elapsed-65)/42) : 0;
+    flashLight.intensity = elapsed >= 65 ? 7 * Math.exp(-(elapsed-65)/42) : 0;
     renderer.render(scene,camera);
     if (!rendered) {
       rendered = true;

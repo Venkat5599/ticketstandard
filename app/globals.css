@@ -8100,8 +8100,21 @@ h1, h2, h3, p { margin: 0; }
 }
 @keyframes landing-film-loop-feed {
   from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(calc(-4 * var(--film-width)), 0, 0); }
+  /* Two identical runs: advance exactly one run so the endpoint joins the
+     same frame and curve without a jump or an empty stretch. */
+  to { transform: translate3d(calc(-1 * var(--reel-frames) * var(--film-width)), 0, 0); }
 }
+.landing-demo-sequence .landing-film-aperture img {
+  /* Crop the halftone conversion's edge bands without mirrored fill. */
+  transform: scale(1.12);
+  transform-origin: center;
+}
+.landing-demo-sequence .landing-film-cell[data-reel-image="sports-car"] .landing-film-aperture img { object-position: 50% 56%; }
+.landing-demo-sequence .landing-film-cell[data-reel-image="chanel-bag"] .landing-film-aperture img { object-position: 50% 50%; }
+.landing-demo-sequence .landing-film-cell[data-reel-image="headphones"] .landing-film-aperture img { object-position: 53% 53%; }
+.landing-demo-sequence .landing-film-cell[data-reel-image="speaker"] .landing-film-aperture img { object-position: 59% 45%; }
+.landing-demo-sequence .landing-film-cell[data-reel-image="macbook"] .landing-film-aperture img { object-position: 50% 48%; }
+.landing-demo-sequence .landing-film-cell[data-reel-image="louis-bag"] .landing-film-aperture img { object-position: 53% 52%; }
 @media (max-width: 760px) {
   .landing-demo-sequence .landing-film-viewport { --film-width: 38vw; }
 }

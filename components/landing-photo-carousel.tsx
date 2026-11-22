@@ -13,15 +13,14 @@ const slides = [
 const reelImages = [
   { name: "sports-car", file: "film-reel-sports-car.webp" },
   { name: "chanel-bag", file: "film-reel-quilted-bag.webp" },
-  { name: "speaker", file: "film-reel-speaker.webp" },
-  { name: "rayban", file: "film-reel-sunglasses.webp" },
-  { name: "louis-bag", file: "film-reel-camera.webp" },
   { name: "headphones", file: "film-reel-headphones.webp" },
+  { name: "speaker", file: "film-reel-speaker.webp" },
   { name: "macbook", file: "film-reel-laptop.webp" },
+  { name: "louis-bag", file: "film-reel-camera.webp" },
 ];
 const reelFrames = Array.from({ length: 2 }, (_, copy) =>
   reelImages.map(image => ({ ...image, key: `${copy}-${image.name}` }))
-).flat().reverse();
+).flat();
 
 export function LandingPhotoCarousel() {
   const [active, setActive] = useState(0);
@@ -77,7 +76,7 @@ export function LandingPhotoCarousel() {
                 <div className="landing-film-strip" style={{ "--reel-frames": reelImages.length, "--reel-track-frames": reelFrames.length } as CSSProperties}>
                   {reelFrames.map((image, index) => (
                     <span key={image.key} data-reel-image={image.name} className="landing-film-cell" style={{ "--frame-index": index } as CSSProperties}>
-                      <span className="landing-film-aperture"><Image loading="eager" decoding="async" src={`/images/${image.file}`} alt="" fill sizes="(max-width: 760px) 38vw, (max-width: 1600px) 25vw, 400px" /></span>
+                      <span className="landing-film-aperture"><Image loading={index < 3 ? "eager" : "lazy"} decoding="async" src={`/images/${image.file}`} alt="" fill sizes="(max-width: 760px) 38vw, (max-width: 1600px) 25vw, 400px" /></span>
                     </span>
                   ))}
                 </div>
